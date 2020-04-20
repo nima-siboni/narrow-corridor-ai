@@ -36,8 +36,42 @@ def return_pointwise_A(i, j, sim):
         A = np.append(A, np.array([[0, 7]]), axis = 0)
     if (j == 9):
         A = np.append(A, np.array([[0, -7]]), axis = 0)
-        
-    return A
+
+
+    # now removing the ovelapping or swaping cases
+    nr_actions = np.size(A, 0)
+    a = np.array([A[0]]) #the first action is always allowed! which is staying where you are
+    for action_id in range(1, nr_actions): #the id starts from 1 (because of the above consideration)
+        action = A[action_id]
+        iprime, jprime = np.array([i, j]) + action
+
+        # checking for the overalps
+        if iprime == jprime : # if the action is allowed; this part can be modified 
+            overlap = True
+        else:
+            overlap = False
+
+        # checking for the swaps
+        swap = False
+        if (i == j - 1 and jprime == iprime - 1):
+            swap = True
+        if (i == j + 1 and jprime == iprime + 1):
+            swap = True
+
+        if (i == 2 and j == 9 and iprime == 9 and jprime == 2):
+            swap = True
+        if (i == 9 and j == 2 and iprime == 2 and jprime == 9):
+            swap = True
+
+        if (swap == True or overlap == True):
+            action_allowed = False
+        else:
+            action_allowed = True
+
+        if (action_allowed):
+            a = np.append(a, np.array([A[action_id]]), axis = 0)
+            
+    return a
 
 
 
@@ -45,33 +79,7 @@ def transition_s_to_s_prime(action_id, A, i, j):
     nr_actions = np.size(A, 0)
     action = A[action_id]
     iprime, jprime = np.array([i, j]) + action
-
-    # checking for the overalps
-    if iprime == jprime : # if the action is allowed; this part can be modified 
-        overlap = True
-    else:
-        overlap = False
-
-    # checking for the swaps
-    swap = False
-    if (i == j - 1 and jprime == iprime - 1):
-        swap = True
-    if (i == j + 1 and jprime == iprime + 1):
-        swap = True
-
-    if (i == 2 and j == 9 and iprime == 9 and jprime == 2):
-        swap = True
-    if (i == 9 and j == 2 and iprime == 2 and jprime == 9):
-        swap = True
-
-    if (swap == True or overlap == True):
-        action_allowed = False
-        iprime = i
-        jprime = j
-    else:
-        action_allowed = True
-        
-    return action_allowed, iprime, jprime
+    return iprime, jprime
         
 
 def Bellmann_iteration(n, pi, r, v, gamma, sim):
@@ -83,7 +91,7 @@ def Bellmann_iteration(n, pi, r, v, gamma, sim):
             preferred_action_id = pi[i, j]
             new_v[i, j] = r[i, j] # this part is assumed to be only dependent the state and the action, not the probablistic outcome of the action
             for action_id in range(0, nr_actions): #iterate over all possible actions
-                action_allowed, iprime, jprime = transition_s_to_s_prime(action_id, A, i, j)
+                iprime, jprime = transition_s_to_s_prime(action_id, A, i, j)
                 if (action_id == preferred_action_id):
                     probability = 1.0
                 else:
@@ -98,7 +106,7 @@ def Q_estimation_for_state_s(i, j, gamma, r, v, candidate_action_id, sim): #stat
     A = return_pointwise_A(i, j, sim)
     nr_actions = np.size(A, 0)
     for k in range(0, nr_actions): #iterate over all possible outcome
-        action_allowed, iprime, jprime = transition_s_to_s_prime(k, A, i, j)
+        iprime, jprime = transition_s_to_s_prime(k, A, i, j)
         if (k == candidate_action_id):
             probability = 1
         else:

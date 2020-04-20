@@ -7,7 +7,7 @@ from RL_library import Q_estimation_for_state_s
 
 # Inputs
 n = 10 #grid size along each direction
-sim = False #if True particles can move simultaneously
+sim = True #if True particles can move simultaneously
 
 # Policy $\pi$
 pi = np.random.random_integers(low=0, high=4, size=(n, n))
