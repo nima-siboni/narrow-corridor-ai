@@ -1,6 +1,6 @@
 import numpy as np
 np.random.seed(0)
-
+  
 def transition_s_to_s_prime(action_id, A, i, j, n):
     nr_actions = np.size(A, 0)
     action = A[action_id]
@@ -47,11 +47,12 @@ def Q_estimation_for_state_s(i, j, A, gamma, v, candidate_action_id): #state s i
 
 
 
-n = 5 #grid size along each direction
+n = 10 #grid size along each direction
 
 # all the possible actions; not all of these actions can be assigned to every s
 # staying (0) there, (1) right, (2) left, (3) up, (4) down
 A = [np.array([0, 0]), np.array([1, 0]), np.array([-1, 0]), np.array([0, 1]), np.array([0, -1])]
+np.savetxt('actions.dat', A)
 nr_actions = np.size(A, 0)
 
 
@@ -65,7 +66,7 @@ pi = np.random.random_integers(low=0, high=4, size=(n, n))
 #pi[:,-1] = 4
 #pi[n-1, n-1] = 0
 print(pi)
-original_pi = pi
+np.savetxt('original_pi.dat', pi)
 
 # values, v
 v = np.zeros(shape=(n, n))
@@ -84,7 +85,7 @@ for iteration in range(0, niteration):
 print v
 
 # policy improvement
-niteration = 10
+niteration = 50
 v = np.zeros(shape=(n, n))
 for iteration in range(0, niteration):
     new_pi = np.zeros(shape=(n, n)) 
@@ -104,3 +105,4 @@ for iteration in range(0, niteration):
 print(pi)        
 
 
+np.savetxt('optimal_pi.dat', pi)
