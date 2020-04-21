@@ -16,7 +16,7 @@ As one can see, it is very unlikely that without the psychological force and/or 
 ![www](./results/directed-motion/directed-walker.gif)
 The dynamics here is very interesting as each agent tends to go to its desired place irrespective of the presence of the other. Nevertheless, the social force repels them and they go back. They try this collision and repulsion process again and again, till randomly they get to explore the possibility of the opening and pass by each other.
 Clearly this process requires many collision between the agents (which is not ideal for Mr. La Linea!). In this representative simulation, the agents collided with each other 8 times which is almost one collision for each step along the corridor!
-* a ** multi-agent reinforcement learning** approach (in which overlaps are prohibited and the desired state is rewarded).
+* a **multi-agent reinforcement learning** approach (in which overlaps are prohibited and the desired state is rewarded).
 ![www](./results/RL-sim/narrow-corridor-animation.gif)
 Using the multi-agent reinforcement learning, the agents find an optimal policy with which they get to their desired places without any collision. 
 Although, for this problem the rule-based agent-based method also led to the desired state, one should mention that for a longer channel the probability of its success decreases. For some other problems which require collective/collaborative motion of the agents, the success of this method can be virtually impossible. An example of such problems is mentioned here, with its RL solution.
