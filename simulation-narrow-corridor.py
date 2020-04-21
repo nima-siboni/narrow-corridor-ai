@@ -97,7 +97,7 @@ while (i!=8 or j!=0): # while the agents haven't arrived at their desired positi
         la_linea_right = './la_linea/la_linea_happy_blue.png'
 
     # 2.2 checking if they have arrived
-    #if they arrive they dont leave anymore; not a major intervation
+    # if they arrive they dont leave anymore; not a major intervation
     if (j == 0): 
         jprime = 0
         la_linea_left = './la_linea/la_linea_happy_red.png'
