@@ -49,7 +49,7 @@ gamma = 0.99
 # this part is only executed if you want to find out what are values of the random initial policies
 niteration = 0
 for iteration in range(0, niteration):
-    v = Bellmann_iteration(n, pi, r, v, gamma, sim)
+    v = Bellmann_iteration(pi, r, v, gamma, sim)
 
 #### 3. policy improvement ####
 
@@ -69,7 +69,7 @@ step = 0
 while (step < 500):
     new_pi = np.zeros(shape=(n, n)) 
     # policy evaluation
-    v = Bellmann_iteration(n, pi, r, v, gamma, sim)
+    v = Bellmann_iteration(pi, r, v, gamma, sim)
     # policy iteration
     for i in range(0, n):
         for j in range(0, n):
