@@ -20,11 +20,13 @@ Clearly this process requires many collision between the agents (which is not id
 ![www](./results/RL-sim/narrow-corridor-animation.gif)
 Using the multi-agent reinforcement learning, the agents find an optimal policy with which they get to their desired places without any collision. 
 Although, for this problem the rule-based agent-based method also led to the desired state, one should mention that for a longer channel the probability of its success decreases. For some other problems which require collective/collaborative motion of the agents, the success of this method can be virtually impossible. An example of such problems is mentioned here, with its RL solution.
+In this example, again the agents start from the squares which have different colors from theirs, and find their way to go to the right squares. Along the way, once the red agent reaches its own square but leaves it to give the blue agent the chance to get to the blue square (and then goes to its desired square). Leaving the desired squeare for a higher future reward (that both agents arrive at their destinations), is not straight-forward to implement in a rule-based agents approach.
+
 ![www](./results/RL-a-more-collaborative-problem/narrow-corridor-v-2.gif)
 
 ## future steps
 * Here for the reinforcement learning, the model of the world is deterministic. It would be more realistic if one includes a probabilistic model.
-* More agents in a geometry which forces higher degree of collaboration between them, e.g. transfer of passenger from the platform to the train and vice-versa which requires an optimal policy as train-doors allow only one agent to pass. Of course a realistic model can be obtained the considering the probabilistic nature of agents, as of course not everyone is behaving based on the optimal policy.
+* More agents in a geometry which forces higher degree of collaboration between them, e.g. transfer of passenger from the platform to the train and vice-versa which requires an optimal policy as train-doors allow only one agent to pass. Of course a realistic model can be obtained the considering the probabilistic nature of the agents, as of course not everyone is behaving based on the optimal policy.
 
 ### important files:
 * `simulation-narrow-corridor-random-motion.py` : simulation script for random motion of agents in the corridor
